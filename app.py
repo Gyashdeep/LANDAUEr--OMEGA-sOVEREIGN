@@ -4,54 +4,57 @@ import numpy as np
 import time
 import altair as alt
 
-# 1. Page Configuration
-st.set_page_config(page_title="OMEGA-GOLD // SOVEREIGN", layout="wide")
+# --- PAGE CONFIGURATION ---
+st.set_page_config(page_title="SOVEREIGN // OMEGA-GOLD", layout="wide")
 
-# 2. Premium Aesthetic Styling
+# --- PROFESSIONAL AESTHETICS (CSS) ---
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-    .main { background-color: #000000; font-family: 'JetBrains Mono', monospace; }
-    h1 { color: #D4AF37; font-size: 2rem; letter-spacing: -1px; text-transform: uppercase; }
-    [data-testid="stMetricValue"] { color: #FFD700; font-size: 4rem !important; font-weight: 700; }
-    [data-testid="stMetricLabel"] { color: #888; text-transform: uppercase; letter-spacing: 2px; }
-    .status-box { border: 1px solid #D4AF37; padding: 10px; color: #D4AF37; font-size: 0.8rem; text-transform: uppercase; }
+    .main { background-color: #000000; }
+    .stApp { color: #D4AF37; }
+    [data-testid="stMetricValue"] { color: #FFD700 !important; font-family: 'JetBrains Mono', monospace; font-size: 3rem !important; }
+    .metric-label { font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 2px; color: #666; }
     </style>
     """, unsafe_allow_html=True)
 
-st.title("⚡ OMEGA-GOLD // SOVEREIGN NODE")
-
-# 3. Logic Engine
+# --- STATE MANAGEMENT ---
 if 'counter' not in st.session_state:
     st.session_state.counter = 0.0
     st.session_state.history = []
 
+# --- SOVEREIGN PULSE LOGIC ---
 st.session_state.counter += 0.15
-val = 54.9128 + (np.sin(st.session_state.counter) * 10)
+val = 50 + (np.sin(st.session_state.counter) * 10)
 st.session_state.history.append(val)
 if len(st.session_state.history) > 60:
     st.session_state.history.pop(0)
 
-# 4. Precision Display
-col1, col2 = st.columns([1, 2])
+# --- UI STRUCTURE ---
+col1, col2 = st.columns([1, 4])
+
 with col1:
-    st.metric("KINETIC YIELD", f"{val:.8f}%")
+    st.markdown("### Ω-SOVEREIGN")
+    st.markdown("<div class='metric-label'>Kinetic Yield</div>", unsafe_allow_html=True)
+    st.metric("", f"{val:.6f}%")
+    st.markdown("---")
+    st.write("**STATUS:** ENTROPY_INVERSION")
+    st.write("**FREQ:** 440.02Hz")
+    st.write("**LIMIT:** LANDAUER_ACTIVE")
+
 with col2:
-    st.markdown("<br><div class='status-box'>STATUS: ENTROPY INVERSION ACTIVE // COMPLIANT</div>", unsafe_allow_html=True)
+    # Precision Visualization
+    df = pd.DataFrame(st.session_state.history, columns=['PULSE'])
+    chart = alt.Chart(df.reset_index()).mark_line(
+        color='#D4AF37', strokeWidth=3
+    ).encode(
+        x=alt.X('index', axis=None),
+        y=alt.Y('PULSE', scale=alt.Scale(domain=[35, 65]), axis=None)
+    ).properties(height=250)
+    
+    st.altair_chart(chart, use_container_width=True)
 
-# 5. Professional Chart (Clean, High-Precision)
-df = pd.DataFrame(st.session_state.history, columns=['PULSE'])
-df['index'] = df.index
+# --- SYSTEM FOOTER ---
+st.caption("CORE_INIT: 0x999900 // SYSTEM OPERATING WITHIN NOMINAL PARAMETERS")
 
-chart = alt.Chart(df).mark_line(color='#D4AF37', strokeWidth=3).encode(
-    x=alt.X('index', axis=None),
-    y=alt.Y('PULSE', scale=alt.Scale(domain=[40, 70]), axis=None)
-).properties(height=250)
-
-st.altair_chart(chart, use_container_width=True)
-
-# 6. Low-Profile footer
-st.caption("LATENCY: 0.0001ms | NODE_ID: Ω-SN-1024 | LANDAUER LIMIT: LOCKED")
-
-time.sleep(0.1)
+time.sleep(0.05)
 st.rerun()
