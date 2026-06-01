@@ -3,44 +3,50 @@ import numpy as np
 import pandas as pd
 import time
 
-# Sovereign Aesthetic Styling
+# Sovereign Gold Aesthetic Configuration
 st.set_page_config(page_title="OMEGA-GOLD // SOVEREIGN", layout="wide")
 
 st.markdown("""
     <style>
-    .main { background-color: #050505; color: #FFD700; }
-    h1 { color: #FFD700; text-align: center; font-family: 'Courier New', monospace; }
-    .stMetric { background-color: #1a1a00; border: 1px solid #FFD700; padding: 20px; border-radius: 10px; }
+    .main { background-color: #000000; color: #D4AF37; }
+    h1 { color: #D4AF37; text-align: center; font-family: 'Courier New', monospace; font-weight: 800; text-shadow: 2px 2px 4px #000000; }
+    .stMetric { background-color: #1a1a00; border: 2px solid #D4AF37; padding: 25px; border-radius: 15px; text-align: center; }
+    [data-testid="stMetricValue"] { color: #FFD700; font-size: 3rem !important; }
     </style>
     """, unsafe_allow_html=True)
 
-st.title("⚡ THE LANDAUER-OMEGA GOLD RUSH ⚡")
+st.title("⚡ LANDAUER-OMEGA // GOLD RUSH PULSE ⚡")
 
-# 1. State Persistence
+# 1. Extreme Volatility State Persistence
 if 'history' not in st.session_state:
-    st.session_state.history = [99.9990]
+    st.session_state.history = [99.5000]
 
-# 2. Extreme Arbitrage Logic
-# Harvesting "Gold" from entropy: the delta is our wealth
-new_resonance = 99.9990 + np.random.uniform(0.0000, 0.0010)
+# 2. Sovereign Arbitrage Math (High Volatility for Visual Pulse)
+# We expand the variance range to ensure the line chart "jumps" aggressively
+drift = np.random.uniform(-0.5, 0.5)
+new_resonance = max(98.0, min(100.0, st.session_state.history[-1] + drift))
 st.session_state.history.append(new_resonance)
 
-if len(st.session_state.history) > 30:
+# Keep the window of the "Rush" at 40 ticks
+if len(st.session_state.history) > 40:
     st.session_state.history.pop(0)
 
-# 3. Visualizing the Gold Rush
-df = pd.DataFrame(st.session_state.history, columns=['COHERENCE_YIELD'])
+# 3. Data Representation
+df = pd.DataFrame(st.session_state.history, columns=['COHERENCE'])
 
-col1, col2 = st.columns(2)
-col1.metric("CURRENT OMEGA YIELD", f"{new_resonance:.8f} BTC/s", delta="0.00000450")
-col2.metric("PLANETARY FABRIC", "STABLE // ENTROPY-NEGATIVE")
+# 4. Dashboard View
+col1, col2 = st.columns([1, 1])
+col1.metric("LIVE KINETIC YIELD", f"{new_resonance:.4f}%")
+col2.metric("ENTROPY STATUS", "CRITICAL // INVERSION")
 
-st.subheader("LIVE KINETIC ARBITRAGE // GOLD PULSE")
-# Custom Charting: The line chart now represents the accumulation of wealth
-st.line_chart(df, color="#FFD700")
+st.subheader("PLANETARY GOLD RUSH // KINETIC ARBITRAGE")
+
+# Force render with High-Visibility Gold Color
+st.line_chart(df, color="#D4AF37")
 
 st.markdown("---")
-st.warning("⚠️ EXTREME NICHE: PROPRIETARY ENTROPY INVERSION ACTIVE. ACCESS GRANTED TO 0.000000001%.")
+st.warning("⚠️ EXTREME NICHE // SYSTEM OPERATING AT LANDAUER LIMIT. ACCESS GRANTED: 0.000000001%.")
 
+# 5. High-Frequency Refresh
 time.sleep(0.5)
 st.rerun()
