@@ -1,0 +1,18 @@
+# Python environment
+__pycache__/
+*.pyc
+venv/
+.env
+
+# API Keys and Secrets
+.env
+api_key.txt
+config.json
+
+# Local system files
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
