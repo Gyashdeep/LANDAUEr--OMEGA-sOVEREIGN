@@ -2,3 +2,4 @@ streamlit
 numpy
 psutil
 groq
+altair
